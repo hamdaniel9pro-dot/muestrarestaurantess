@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Fenollar — Restaurante</title>
+<meta name="description" content="Casa Fenollar. Cocina mediterránea de autor en un ambiente elegante. Sitio web de muestra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍽️%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- Aviso de web de muestra / Demo site notice -->
+<div class="demo-banner" id="demoBanner">
+  <p data-i18n="notice.banner">Este es un sitio web de muestra. "Casa Fenollar" es un restaurante ficticio creado únicamente con fines de demostración. Las imágenes son de stock y no representan el local real.</p>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <nav class="navbar" aria-label="Navegación principal">
+    <a href="#inicio" class="brand">
+      <span class="brand-mark">CF</span>
+      <span class="brand-name">Casa Fenollar</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio" data-i18n="nav.home">Inicio</a></li>
+      <li><a href="#carta" data-i18n="nav.menu">Carta</a></li>
+      <li><a href="#galeria" data-i18n="nav.gallery">Galería</a></li>
+      <li><a href="#eventos" data-i18n="nav.events">Eventos</a></li>
+      <li><a href="#horarios" data-i18n="nav.hours">Horarios</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">Preguntas</a></li>
+      <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+      <li><a href="#reservas" class="btn-nav-reserve" data-i18n="nav.reserve">Reservar</a></li>
+    </ul>
+
+    <div class="lang-switch" role="group" aria-label="Selector de idioma">
+      <button type="button" class="lang-btn active" data-lang="es">ES</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80" alt="Interior elegante del restaurante Casa Fenollar">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-i18n="hero.eyebrow">Cocina mediterránea de autor</p>
+    <h1 data-i18n="hero.title">Casa Fenollar</h1>
+    <p class="hero-subtitle" data-i18n="hero.subtitle">Producto de temporada, fuego lento y sobremesas largas, en el corazón de la ciudad.</p>
+    <div class="hero-actions">
+      <a href="#reservas" class="btn btn-primary" data-i18n="hero.cta_reserve">Reservar mesa</a>
+      <a href="#carta" class="btn btn-ghost" data-i18n="hero.cta_menu">Ver la carta</a>
+    </div>
+  </div>
+  <a href="#carta" class="scroll-hint" aria-hidden="true"></a>
+</section>
+
+<!-- CARTA / MENU -->
+<section class="section" id="carta">
+  <div class="container">
+    <p class="section-eyebrow" data-i18n="menu.eyebrow">Nuestra propuesta</p>
+    <h2 class="section-title" data-i18n="menu.title">La Carta</h2>
+    <p class="section-lead" data-i18n="menu.lead">Una selección de platos de ejemplo. Precios orientativos, sujetos a disponibilidad de mercado.</p>
+
+    <div class="menu-tabs" role="tablist" aria-label="Secciones de la carta">
+      <button class="menu-tab active" data-target="starters" data-i18n="menu.tab.starters">Entrantes</button>
+      <button class="menu-tab" data-target="mains" data-i18n="menu.tab.mains">Principales</button>
+      <button class="menu-tab" data-target="desserts" data-i18n="menu.tab.desserts">Postres</button>
+      <button class="menu-tab" data-target="drinks" data-i18n="menu.tab.drinks">Vinos y Bebidas</button>
+    </div>
+
+    <!-- Entrantes -->
+    <div class="menu-panel active" id="starters">
+      <div class="menu-grid">
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?auto=format&fit=crop&w=800&q=80" alt="Croquetas de jamón ibérico"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d1.name">Croquetas de jamón ibérico</h3><span class="dish-price">9,50&nbsp;€</span></div>
+            <p data-i18n="menu.d1.desc">Bechamel cremosa, jamón ibérico de bellota y un toque de nuez moscada.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=800&q=80" alt="Pulpo a la brasa"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d2.name">Pulpo a la brasa con puré de patata</h3><span class="dish-price">16,00&nbsp;€</span></div>
+            <p data-i18n="menu.d2.desc">Pulpo cocido a baja temperatura y finalizado a la brasa, puré trufado y pimentón de la Vera.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80" alt="Ensalada de burrata y tomate"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d3.name">Burrata y tomate de huerta</h3><span class="dish-price">12,00&nbsp;€</span></div>
+            <p data-i18n="menu.d3.desc">Burrata cremosa, tomate rosa de temporada, albahaca y aceite de oliva virgen extra.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80" alt="Tartar de atún rojo"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d4.name">Tartar de atún rojo</h3><span class="dish-price">15,50&nbsp;€</span></div>
+            <p data-i18n="menu.d4.desc">Atún rojo cortado al cuchillo, aguacate, sésamo y vinagreta de soja y lima.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- Principales -->
+    <div class="menu-panel" id="mains">
+      <div class="menu-grid">
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80" alt="Arroz meloso de bogavante"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d5.name">Arroz meloso de bogavante</h3><span class="dish-price">28,00&nbsp;€</span></div>
+            <p data-i18n="menu.d5.desc">Fondo de pescado y marisco, arroz bomba y bogavante de la lonja.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80" alt="Solomillo de ternera a la brasa"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d6.name">Solomillo de ternera a la brasa</h3><span class="dish-price">26,00&nbsp;€</span></div>
+            <p data-i18n="menu.d6.desc">Maduración propia, brasa de carbón vegetal y salsa de reducción de vino tinto.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80" alt="Lubina a la sal"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d7.name">Lubina a la sal</h3><span class="dish-price">24,00&nbsp;€</span></div>
+            <p data-i18n="menu.d7.desc">Lubina salvaje al horno sobre costra de sal marina, verduras de temporada.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800&q=80" alt="Risotto de setas y trufa"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d8.name">Risotto de setas y trufa</h3><span class="dish-price">19,50&nbsp;€</span></div>
+            <p data-i18n="menu.d8.desc">Arroz carnaroli, mezcla de setas de temporada y aceite de trufa negra.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- Postres -->
+    <div class="menu-panel" id="desserts">
+      <div class="menu-grid">
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80" alt="Tarta de queso con frutos rojos"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d9.name">Tarta de queso con frutos rojos</h3><span class="dish-price">8,00&nbsp;€</span></div>
+            <p data-i18n="menu.d9.desc">Horneada al estilo tradicional, coulis de frutos rojos de temporada.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80" alt="Coulant de chocolate"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d10.name">Coulant de chocolate</h3><span class="dish-price">8,50&nbsp;€</span></div>
+            <p data-i18n="menu.d10.desc">Chocolate 70%, corazón líquido, helado de vainilla de Madagascar.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80" alt="Crema catalana"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d11.name">Crema catalana</h3><span class="dish-price">7,00&nbsp;€</span></div>
+            <p data-i18n="menu.d11.desc">Receta tradicional con canela y piel de cítricos, azúcar caramelizado al momento.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- Bebidas -->
+    <div class="menu-panel" id="drinks">
+      <div class="menu-grid">
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80" alt="Copa de vino tinto"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d12.name">Copa de vino tinto reserva</h3><span class="dish-price">6,50&nbsp;€</span></div>
+            <p data-i18n="menu.d12.desc">Selección de la casa, denominación de origen, crianza en barrica de roble.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1558346648-9757f2fa4474?auto=format&fit=crop&w=800&q=80" alt="Copa de cava"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d13.name">Cava Casa Fenollar</h3><span class="dish-price">7,00&nbsp;€</span></div>
+            <p data-i18n="menu.d13.desc">Método tradicional, burbuja fina, ideal para brindar.</p>
+          </div>
+        </article>
+
+        <article class="dish-card">
+          <div class="dish-photo"><img src="https://images.unsplash.com/photo-1523371683702-61fe3bb5b280?auto=format&fit=crop&w=800&q=80" alt="Agua con gas"></div>
+          <div class="dish-info">
+            <div class="dish-head"><h3 data-i18n="menu.d14.name">Agua mineral</h3><span class="dish-price">3,00&nbsp;€</span></div>
+            <p data-i18n="menu.d14.desc">Con o sin gas, botella de cristal 500ml.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <p class="menu-note" data-i18n="menu.note">* Todos los platos y precios son de ejemplo, orientados a mostrar el diseño de la carta.</p>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="section section-alt" id="galeria">
+  <div class="container">
+    <p class="section-eyebrow" data-i18n="gallery.eyebrow">Un vistazo</p>
+    <h2 class="section-title" data-i18n="gallery.title">Galería</h2>
+    <p class="section-lead" data-i18n="gallery.lead">Imágenes de muestra que ilustran el ambiente y los platos del restaurante.</p>
+
+    <div class="gallery-grid">
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=700&q=80" alt="Mesa puesta con mantel elegante" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=700&q=80" alt="Salón principal del restaurante" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=700&q=80" alt="Copas de vino sobre la mesa" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=80" alt="Plato principal emplatado" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=700&q=80" alt="Detalle de cocina en acción" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=700&q=80" alt="Barra y zona de coctelería" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1515669097368-22e68427d265?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1515669097368-22e68427d265?auto=format&fit=crop&w=700&q=80" alt="Terraza exterior del restaurante" loading="lazy">
+      </button>
+      <button class="gallery-item" data-full="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1600&q=80">
+        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=700&q=80" alt="Postre de muestra en plato blanco" loading="lazy">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTOS Y CELEBRACIONES -->
+<section class="section" id="eventos">
+  <div class="container">
+    <p class="section-eyebrow" data-i18n="events.eyebrow">Momentos únicos</p>
+    <h2 class="section-title" data-i18n="events.title">Eventos y Celebraciones</h2>
+    <p class="section-lead" data-i18n="events.lead">Nuestra sala privada y nuestro equipo de sala se adaptan a cualquier celebración, con menús a medida.</p>
+
+    <div class="events-grid">
+      <article class="event-card">
+        <div class="event-photo"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80" alt="Mesa decorada para una boda"></div>
+        <h3 data-i18n="events.e1.title">Bodas</h3>
+        <p data-i18n="events.e1.desc">Menús personalizados y decoración a medida para celebrar vuestro gran día con quienes más queráis.</p>
+      </article>
+      <article class="event-card">
+        <div class="event-photo"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80" alt="Mesa de reunión de empresa"></div>
+        <h3 data-i18n="events.e2.title">Eventos de empresa</h3>
+        <p data-i18n="events.e2.desc">Salas privadas equipadas para comidas de trabajo, presentaciones y cenas corporativas.</p>
+      </article>
+      <article class="event-card">
+        <div class="event-photo"><img src="https://images.unsplash.com/photo-1530103862676-de616e6c4b44?auto=format&fit=crop&w=800&q=80" alt="Mesa con tarta de cumpleaños"></div>
+        <h3 data-i18n="events.e3.title">Cumpleaños y aniversarios</h3>
+        <p data-i18n="events.e3.desc">Haz de una fecha especial un recuerdo inolvidable con un menú pensado para la ocasión.</p>
+      </article>
+      <article class="event-card">
+        <div class="event-photo"><img src="https://images.unsplash.com/photo-1529636444744-2074a5428ad2?auto=format&fit=crop&w=800&q=80" alt="Grupo celebrando alrededor de la mesa"></div>
+        <h3 data-i18n="events.e4.title">Celebraciones privadas</h3>
+        <p data-i18n="events.e4.desc">Reserva en exclusiva todo el espacio para tu grupo, con atención personalizada de principio a fin.</p>
+      </article>
+    </div>
+
+    <div class="events-cta">
+      <p data-i18n="events.cta_text">Cuéntanos qué estás celebrando y diseñamos la experiencia contigo.</p>
+      <a href="#reservas" class="btn btn-primary" data-i18n="events.cta_button">Consultar disponibilidad</a>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAS -->
+<section class="section section-alt" id="reservas">
+  <div class="container">
+    <p class="section-eyebrow" data-i18n="reserve.eyebrow">Te esperamos</p>
+    <h2 class="section-title" data-i18n="reserve.title">Reserva tu mesa</h2>
+    <p class="section-lead" data-i18n="reserve.lead">Completa el formulario y confirmaremos tu reserva lo antes posible.</p>
+
+    <div class="reserve-wrap">
+      <form id="reservationForm" class="reserve-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resName" data-i18n="reserve.label.name">Nombre completo</label>
+            <input type="text" id="resName" name="name" required autocomplete="name">
+            <span class="field-error" data-i18n="reserve.error.name">Por favor indica tu nombre.</span>
+          </div>
+          <div class="form-group">
+            <label for="resEmail" data-i18n="reserve.label.email">Correo electrónico</label>
+            <input type="email" id="resEmail" name="email" required autocomplete="email">
+            <span class="field-error" data-i18n="reserve.error.email">Introduce un correo electrónico válido.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resPhone" data-i18n="reserve.label.phone">Teléfono</label>
+            <input type="tel" id="resPhone" name="phone" required autocomplete="tel">
+            <span class="field-error" data-i18n="reserve.error.phone">Introduce un teléfono de contacto.</span>
+          </div>
+          <div class="form-group">
+            <label for="resGuests" data-i18n="reserve.label.guests">Número de comensales</label>
+            <select id="resGuests" name="guests" required>
+              <option value="" data-i18n="reserve.guests.placeholder">Selecciona...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7+" data-i18n="reserve.guests.more">Más de 7</option>
+            </select>
+            <span class="field-error" data-i18n="reserve.error.guests">Indica el número de comensales.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="resDate" data-i18n="reserve.label.date">Fecha</label>
+            <input type="date" id="resDate" name="date" required>
+            <span class="field-error" data-i18n="reserve.error.date">Selecciona una fecha válida.</span>
+          </div>
+          <div class="form-group">
+            <label for="resTime" data-i18n="reserve.label.time">Hora</label>
+            <select id="resTime" name="time" required>
+              <option value="" data-i18n="reserve.time.placeholder">Selecciona...</option>
+              <option value="13:00">13:00</option>
+              <option value="13:30">13:30</option>
+              <option value="14:00">14:00</option>
+              <option value="14:30">14:30</option>
+              <option value="20:00">20:00</option>
+              <option value="20:30">20:30</option>
+              <option value="21:00">21:00</option>
+              <option value="21:30">21:30</option>
+              <option value="22:00">22:00</option>
+            </select>
+            <span class="field-error" data-i18n="reserve.error.time">Selecciona una hora.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="resNotes" data-i18n="reserve.label.notes">Peticiones especiales (opcional)</label>
+          <textarea id="resNotes" name="notes" rows="3" data-i18n-placeholder="reserve.notes.placeholder" placeholder="Alergias, celebraciones, preferencias de mesa..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" data-i18n="reserve.submit">Confirmar reserva</button>
+      </form>
+
+      <div class="reserve-confirmation" id="reserveConfirmation" hidden>
+        <div class="confirmation-icon">&#10003;</div>
+        <h3 data-i18n="reserve.confirm.title">Reserva recibida</h3>
+        <p data-i18n="reserve.confirm.text">Gracias por tu reserva. Te enviaremos la confirmación por correo electrónico en breve.</p>
+        <dl class="confirmation-summary" id="confirmationSummary"></dl>
+        <button type="button" class="btn btn-ghost" id="newReservationBtn" data-i18n="reserve.confirm.new">Hacer otra reserva</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORARIOS Y MAPA -->
+<section class="section" id="horarios">
+  <div class="container">
+    <div class="hours-map-grid">
+      <div class="hours-block">
+        <p class="section-eyebrow" data-i18n="hours.eyebrow">Cuándo visitarnos</p>
+        <h2 class="section-title" data-i18n="hours.title">Horarios</h2>
+        <table class="hours-table">
+          <tbody>
+            <tr><th data-i18n="hours.mon">Lunes</th><td data-i18n="hours.closed">Cerrado</td></tr>
+            <tr><th data-i18n="hours.tue_thu">Martes a Jueves</th><td>13:00 – 16:00 / 20:00 – 23:00</td></tr>
+            <tr><th data-i18n="hours.fri_sat">Viernes y Sábado</th><td>13:00 – 16:00 / 20:00 – 23:30</td></tr>
+            <tr><th data-i18n="hours.sun">Domingo</th><td>13:00 – 16:00</td></tr>
+          </tbody>
+        </table>
+        <p class="hours-note" data-i18n="hours.note">Horarios de ejemplo. Última entrada 30 minutos antes del cierre de cocina.</p>
+
+        <div class="contact-block" id="contacto">
+          <h3 data-i18n="hours.contact_title">Contacto</h3>
+          <p>📍 <span data-i18n="hours.address">Carrer de l'Exemple, 24, 46001 Valencia (dirección de ejemplo)</span></p>
+          <p>📞 <span data-i18n="hours.phone">+34 900 000 000 (número de ejemplo)</span></p>
+          <p>✉️ <span data-i18n="hours.email">reservas@casafenollar-ejemplo.com (correo de ejemplo)</span></p>
+        </div>
+      </div>
+
+      <div class="map-block">
+        <iframe
+          title="Mapa de ubicación de ejemplo de Casa Fenollar"
+          src="https://www.google.com/maps?q=Valencia,Spain&output=embed"
+          width="100%" height="100%" style="border:0;" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <p class="section-eyebrow" data-i18n="faq.eyebrow">Dudas frecuentes</p>
+    <h2 class="section-title" data-i18n="faq.title">Preguntas Frecuentes</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq.q1">¿Es necesario reservar con antelación?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq.a1">Recomendamos reservar, especialmente para fines de semana y grupos grandes, para garantizar disponibilidad.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq.q2">¿Tenéis opciones vegetarianas y veganas?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq.a2">Sí, nuestra carta incluye opciones vegetarianas y veganas, y podemos adaptar varios platos bajo petición.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq.q3">¿Aceptáis grupos grandes?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq.a3">Sí, disponemos de una sala privada para grupos de hasta 30 personas con menús especiales para grupos.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq.q4">¿Hay aparcamiento cerca?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq.a4">Existe un parking público a pocos minutos a pie. También contamos con servicio de aparcacoches los fines de semana.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq.q5">¿Se admiten mascotas?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq.a5">Las mascotas son bienvenidas en nuestra terraza exterior, sujeto a la normativa vigente.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span data-i18n="faq.q6">¿Puedo celebrar un evento privado?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq.a6">Por supuesto. Consulta nuestra sección de Eventos y Celebraciones o contacta con nosotros para diseñar un menú a medida.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand-mark">CF</span>
+      <span class="brand-name">Casa Fenollar</span>
+      <p data-i18n="footer.tagline">Cocina mediterránea de autor.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footer.links_title">Enlaces</h4>
+      <ul>
+        <li><a href="#carta" data-i18n="nav.menu">Carta</a></li>
+        <li><a href="#galeria" data-i18n="nav.gallery">Galería</a></li>
+        <li><a href="#eventos" data-i18n="nav.events">Eventos</a></li>
+        <li><a href="#reservas" data-i18n="nav.reserve">Reservar</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact_title">Contacto</h4>
+      <ul>
+        <li data-i18n="hours.address">Carrer de l'Exemple, 24, 46001 Valencia (dirección de ejemplo)</li>
+        <li data-i18n="hours.phone">+34 900 000 000 (número de ejemplo)</li>
+        <li data-i18n="hours.email">reservas@casafenollar-ejemplo.com (correo de ejemplo)</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footer.follow_title">Síguenos</h4>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram (enlace de ejemplo)">Instagram</a>
+        <a href="#" aria-label="Facebook (enlace de ejemplo)">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p data-i18n="footer.demo_notice">Este sitio es una demostración de diseño web. Casa Fenollar es un restaurante ficticio; ninguna información de contacto, dirección o reserva es real.</p>
+    <p>&copy; <span id="currentYear"></span> Casa Fenollar — <span data-i18n="footer.sample">sitio de muestra</span>.</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">&times;</button>
+  <img id="lightboxImage" src="" alt="">
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
