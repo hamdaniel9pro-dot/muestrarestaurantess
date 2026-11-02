@@ -93,6 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const summary = document.getElementById("confirmationSummary");
   const newReservationBtn = document.getElementById("newReservationBtn");
   const dateInput = document.getElementById("resDate");
+  const timeSelect = document.getElementById("resTime");
+  const dateGroup = dateInput ? dateInput.closest(".form-group") : null;
+  const dateErrorSpan = dateGroup ? dateGroup.querySelector(".field-error") : null;
 
   if (dateInput) {
     const today = new Date();
@@ -114,6 +117,106 @@ document.addEventListener("DOMContentLoaded", () => {
     const valid = field.checkValidity();
     group.classList.toggle("invalid", !valid);
     return valid;
+  }
+
+  /* ----- Opening hours: day of week (0=Sun..6=Sat) -> [ [open, lastEntry], ... ] ----- */
+  const SCHEDULE = {
+    0: [["13:00", "15:30"]],                     // Domingo: solo comida
+    1: [],                                       // Lunes: cerrado
+    2: [["13:00", "15:30"], ["20:00", "22:30"]],  // Martes
+    3: [["13:00", "15:30"], ["20:00", "22:30"]],  // Miércoles
+    4: [["13:00", "15:30"], ["20:00", "22:30"]],  // Jueves
+    5: [["13:00", "15:30"], ["20:00", "23:00"]],  // Viernes
+    6: [["13:00", "15:30"], ["20:00", "23:00"]],  // Sábado
+  };
+
+  function timeToMinutes(hhmm) {
+    const [h, m] = hhmm.split(":").map(Number);
+    return h * 60 + m;
+  }
+
+  function minutesToTime(mins) {
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    return String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+  }
+
+  function generateTimeSlots(dayOfWeek) {
+    const ranges = SCHEDULE[dayOfWeek] || [];
+    const slots = [];
+    ranges.forEach(([start, end]) => {
+      for (let m = timeToMinutes(start); m <= timeToMinutes(end); m += 30) {
+        slots.push(minutesToTime(m));
+      }
+    });
+    return slots;
+  }
+
+  function getDayOfWeek(dateStr) {
+    return new Date(dateStr + "T00:00:00").getDay();
+  }
+
+  function setFieldErrorKey(span, key) {
+    if (!span) return;
+    span.setAttribute("data-i18n", key);
+    span.textContent = t(key);
+  }
+
+  function rebuildTimeOptions(slots, keepValue, placeholderKey) {
+    if (!timeSelect) return;
+    timeSelect.innerHTML = "";
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.setAttribute("data-i18n", placeholderKey);
+    placeholder.textContent = t(placeholderKey);
+    timeSelect.appendChild(placeholder);
+
+    slots.forEach((s) => {
+      const opt = document.createElement("option");
+      opt.value = s;
+      opt.textContent = s;
+      timeSelect.appendChild(opt);
+    });
+
+    timeSelect.value = keepValue && slots.includes(keepValue) ? keepValue : "";
+  }
+
+  function updateAvailability() {
+    if (!dateInput || !timeSelect) return;
+    const dateVal = dateInput.value;
+    const previousTime = timeSelect.value;
+
+    if (!dateVal) {
+      timeSelect.disabled = true;
+      rebuildTimeOptions([], previousTime, "reserve.time.choose_date_first");
+      if (dateGroup) dateGroup.classList.remove("invalid");
+      setFieldErrorKey(dateErrorSpan, "reserve.error.date");
+      dateInput.setCustomValidity("");
+      return;
+    }
+
+    const day = getDayOfWeek(dateVal);
+    const slots = generateTimeSlots(day);
+
+    if (slots.length === 0) {
+      timeSelect.disabled = true;
+      rebuildTimeOptions([], previousTime, "reserve.time.choose_date_first");
+      setFieldErrorKey(dateErrorSpan, "reserve.error.closed");
+      dateInput.setCustomValidity(t("reserve.error.closed"));
+      if (dateGroup) dateGroup.classList.add("invalid");
+    } else {
+      timeSelect.disabled = false;
+      rebuildTimeOptions(slots, previousTime, "reserve.time.placeholder");
+      setFieldErrorKey(dateErrorSpan, "reserve.error.date");
+      dateInput.setCustomValidity("");
+      if (dateGroup) dateGroup.classList.remove("invalid");
+    }
+  }
+
+  if (dateInput) {
+    updateAvailability();
+    dateInput.addEventListener("change", updateAvailability);
   }
 
   if (form) {

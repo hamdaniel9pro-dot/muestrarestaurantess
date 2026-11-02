@@ -459,6 +459,11 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; margin: 0; }
   outline: none;
   border-color: var(--color-gold);
 }
+.form-group select:disabled {
+  background: #f2ece0;
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
 .field-error {
   display: none;
   color: #a4342a;
@@ -601,6 +606,12 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; margin: 0; }
 .footer-col ul a:hover { color: var(--color-gold-light); }
 .social-links { display: flex; flex-direction: column; gap: 10px; font-size: 0.88rem; }
 .social-links a:hover { color: var(--color-gold-light); }
+.social-link-sample {
+  color: inherit;
+  opacity: 0.55;
+  cursor: default;
+  width: fit-content;
+}
 
 .footer-bottom {
   text-align: center;
