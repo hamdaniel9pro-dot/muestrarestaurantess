@@ -1,109 +1,93 @@
-/* ===== Altura — comportamiento del sitio ===== */
+/* ===== Casa Fenollar — site behaviour ===== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* ----- Mobile nav toggle ----- */
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
 
-  /* ----- Aviso de web de muestra: cerrar ----- */
-  const demoBanner = document.getElementById("demoBanner");
-  const demoBannerClose = document.getElementById("demoBannerClose");
-  if (demoBannerClose && demoBanner) {
-    demoBannerClose.addEventListener("click", () => {
-      demoBanner.classList.add("is-hidden");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
     });
   }
 
-  /* ----- Aparición de los capítulos al hacer scroll ----- */
-  const chapters = document.querySelectorAll(".chapter");
+  /* ----- Menu tabs (Carta) ----- */
+  const menuTabs = document.querySelectorAll(".menu-tab");
+  const menuPanels = document.querySelectorAll(".menu-panel");
 
-  if ("IntersectionObserver" in window) {
-    const chapterObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    chapters.forEach((chapter) => chapterObserver.observe(chapter));
-  } else {
-    chapters.forEach((chapter) => chapter.classList.add("is-visible"));
-  }
+  menuTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.getAttribute("data-target");
 
-  /* ----- Profundidad suave en las fotos al hacer scroll ----- */
-  const parallaxEls = Array.from(document.querySelectorAll("[data-parallax]"));
-  let ticking = false;
+      menuTabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
 
-  function updateParallax() {
-    const viewportH = window.innerHeight;
-    parallaxEls.forEach((el) => {
-      const rect = el.parentElement.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > viewportH) return;
-      const progress = (rect.top) / viewportH; // ~1 al entrar, ~-1 al salir
-      const shift = progress * 42;
-      el.style.transform = `translate3d(0, ${shift}px, 0)`;
+      menuPanels.forEach((panel) => {
+        panel.classList.toggle("active", panel.id === target);
+      });
     });
-    ticking = false;
+  });
+
+  /* ----- Gallery lightbox ----- */
+  const galleryItems = document.querySelectorAll(".gallery-item");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = document.getElementById("lightboxImage");
+  const lightboxClose = document.getElementById("lightboxClose");
+
+  galleryItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const full = item.getAttribute("data-full");
+      lightboxImage.src = full;
+      lightboxImage.alt = item.querySelector("img").alt;
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.hidden = true;
+    lightboxImage.src = "";
+    document.body.style.overflow = "";
   }
 
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
+  if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+  if (lightbox) {
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
   }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightbox && !lightbox.hidden) closeLightbox();
+  });
 
-  if (!reduceMotion && parallaxEls.length) {
-    window.addEventListener("scroll", onScroll, { passive: true });
-    updateParallax();
-  }
+  /* ----- FAQ accordion ----- */
+  document.querySelectorAll(".faq-question").forEach((question) => {
+    question.addEventListener("click", () => {
+      const answer = question.nextElementSibling;
+      const isOpen = question.getAttribute("aria-expanded") === "true";
 
-  /* ----- Barra de progreso de lectura ----- */
-  const progressBar = document.getElementById("scrollProgress");
+      document.querySelectorAll(".faq-question").forEach((q) => {
+        q.setAttribute("aria-expanded", "false");
+        q.nextElementSibling.style.maxHeight = null;
+      });
 
-  function updateProgress() {
-    if (!progressBar) return;
-    const doc = document.documentElement;
-    const scrollable = doc.scrollHeight - doc.clientHeight;
-    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-    progressBar.style.width = pct + "%";
-  }
+      if (!isOpen) {
+        question.setAttribute("aria-expanded", "true");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+  });
 
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  updateProgress();
-
-  /* ----- Botón de reserva fijo: aparece tras la portada ----- */
-  const reserveFab = document.getElementById("reserveFab");
-  const introSection = document.getElementById("inicio");
-  const reservasSection = document.getElementById("reservas");
-
-  if (reserveFab && introSection) {
-    const fabObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          reserveFab.classList.toggle("is-visible", !entry.isIntersecting);
-        });
-      },
-      { threshold: 0 }
-    );
-    fabObserver.observe(introSection);
-
-    if (reservasSection) {
-      const hideOnReserve = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) reserveFab.classList.remove("is-visible");
-          });
-        },
-        { threshold: 0.6 }
-      );
-      hideOnReserve.observe(reservasSection);
-    }
-  }
-
-  /* ----- Reserva: horario válido por día de la semana ----- */
+  /* ----- Reservation form ----- */
   const form = document.getElementById("reservationForm");
   const confirmation = document.getElementById("reserveConfirmation");
   const summary = document.getElementById("confirmationSummary");
@@ -116,9 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (dateInput) {
     const today = new Date();
     dateInput.min = today.toISOString().split("T")[0];
-    const maxDate = new Date(today);
-    maxDate.setMonth(maxDate.getMonth() + 3);
-    dateInput.max = maxDate.toISOString().split("T")[0];
   }
 
   function currentLang() {
@@ -126,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function t(key) {
-    const entry = window.translations && window.translations[key];
+    const entry = translations[key];
     if (!entry) return key;
     return entry[currentLang()] || entry.es;
   }
@@ -138,15 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return valid;
   }
 
-  /* Día de la semana (0=domingo..6=sábado) -> franjas [inicio, última entrada] */
+  /* ----- Opening hours: day of week (0=Sun..6=Sat) -> [ [open, lastEntry], ... ] ----- */
   const SCHEDULE = {
-    0: [["13:30", "16:30"]],                        // Domingo: solo comida
-    1: [],                                           // Lunes: cerrado
-    2: [["20:00", "23:00"]],                         // Martes: solo cena
-    3: [["20:00", "23:00"]],                         // Miércoles: solo cena
-    4: [["20:00", "23:00"]],                         // Jueves: solo cena
-    5: [["13:30", "15:30"], ["20:00", "23:30"]],     // Viernes: comida y cena
-    6: [["13:30", "15:30"], ["20:00", "23:30"]],     // Sábado: comida y cena
+    0: [["13:00", "15:30"]],                     // Domingo: solo comida
+    1: [],                                       // Lunes: cerrado
+    2: [["13:00", "15:30"], ["20:00", "22:30"]],  // Martes
+    3: [["13:00", "15:30"], ["20:00", "22:30"]],  // Miércoles
+    4: [["13:00", "15:30"], ["20:00", "22:30"]],  // Jueves
+    5: [["13:00", "15:30"], ["20:00", "23:00"]],  // Viernes
+    6: [["13:00", "15:30"], ["20:00", "23:00"]],  // Sábado
   };
 
   function timeToMinutes(hhmm) {
@@ -173,19 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getDayOfWeek(dateStr) {
     return new Date(dateStr + "T00:00:00").getDay();
-  }
-
-  function isTodaySelected(dateStr) {
-    const today = new Date();
-    const todayStr = today.toISOString().split("T")[0];
-    return dateStr === todayStr;
-  }
-
-  function filterPastTimesIfToday(slots, dateStr) {
-    if (!isTodaySelected(dateStr)) return slots;
-    const now = new Date();
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
-    return slots.filter((s) => timeToMinutes(s) > nowMinutes + 30);
   }
 
   function setFieldErrorKey(span, key) {
@@ -223,22 +191,19 @@ document.addEventListener("DOMContentLoaded", () => {
       timeSelect.disabled = true;
       rebuildTimeOptions([], previousTime, "reserve.time.choose_date_first");
       if (dateGroup) dateGroup.classList.remove("invalid");
+      setFieldErrorKey(dateErrorSpan, "reserve.error.date");
       dateInput.setCustomValidity("");
       return;
     }
 
     const day = getDayOfWeek(dateVal);
-    let slots = generateTimeSlots(day);
-    slots = filterPastTimesIfToday(slots, dateVal);
+    const slots = generateTimeSlots(day);
 
     if (slots.length === 0) {
       timeSelect.disabled = true;
       rebuildTimeOptions([], previousTime, "reserve.time.choose_date_first");
-      const key = SCHEDULE[day] && SCHEDULE[day].length === 0
-        ? "reserve.error.closed"
-        : "reserve.error.no_slots_today";
-      setFieldErrorKey(dateErrorSpan, key);
-      dateInput.setCustomValidity(t(key));
+      setFieldErrorKey(dateErrorSpan, "reserve.error.closed");
+      dateInput.setCustomValidity(t("reserve.error.closed"));
       if (dateGroup) dateGroup.classList.add("invalid");
     } else {
       timeSelect.disabled = false;
@@ -250,8 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (dateInput) {
+    updateAvailability();
     dateInput.addEventListener("change", updateAvailability);
-    document.addEventListener("altura:langchange", updateAvailability);
   }
 
   if (form) {
@@ -263,8 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-
-      updateAvailability();
 
       let allValid = true;
       fields.forEach((field) => {
@@ -297,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       form.hidden = true;
       confirmation.hidden = false;
-      confirmation.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+      confirmation.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
 
@@ -305,10 +268,9 @@ document.addEventListener("DOMContentLoaded", () => {
     newReservationBtn.addEventListener("click", () => {
       form.reset();
       form.querySelectorAll(".form-group").forEach((g) => g.classList.remove("invalid"));
-      updateAvailability();
       form.hidden = false;
       confirmation.hidden = true;
-      form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   }
 
@@ -318,9 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return div.innerHTML;
   }
 
-  updateAvailability();
-
-  /* ----- Año del footer ----- */
+  /* ----- Footer year ----- */
   const yearEl = document.getElementById("currentYear");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
